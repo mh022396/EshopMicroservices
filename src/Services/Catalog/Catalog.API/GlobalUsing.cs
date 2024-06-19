@@ -7,3 +7,7 @@ global using Shared.CQRS;
 global using Catalog.API.Exceptions;
 global using FluentValidation;
 global using Shared.Exceptions;
+global using Catalog.API.Data;
+global using Shared.Behaviors;
+global using Shared.Exceptions.Handler;
+global using Marten.Pagination;
