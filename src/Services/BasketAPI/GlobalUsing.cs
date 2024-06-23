@@ -5,3 +5,8 @@ global using MediatR;
 global using Mapster;
 global using FluentValidation;
 global using Shared.Behaviors;
+global using Marten;
+global using Shared.Exceptions;
+global using BasketAPI.Exceptions;
+global using Marten.Schema;
+global using BasketAPI.Data;

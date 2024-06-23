@@ -1,3 +1,5 @@
+using Shared.Exceptions.Handler;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //Services
@@ -12,8 +14,20 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LogginBehavior<,>));
 });
 
+builder.Services.AddMarten(options =>
+{
+    options.Connection(builder.Configuration.GetConnectionString("Database")!);
+}).UseLightweightSessions();
+
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 //Configure HTTP pipeline
+
+app.MapCarter();
+app.UseExceptionHandler(options => { });
 
 app.Run();

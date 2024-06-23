@@ -1,13 +1,14 @@
-﻿namespace BasketAPI.Basket.GetBasket;
+﻿
+namespace BasketAPI.Basket.GetBasket;
 
 public record GetBasketQuery(string UserName): IQuery<GetBasketResult>;
-public record GetBasketResult(ShoppingCart ShoppingCart);
+public record GetBasketResult(ShoppingCart Cart);
 
-public class GetBasketHandler : IQueryHandler<GetBasketQuery, GetBasketResult>
+public class GetBasketHandler(IBasketRepository repository) : IQueryHandler<GetBasketQuery, GetBasketResult>
 {
     public async Task<GetBasketResult> Handle(GetBasketQuery query, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        return new(new("test"));
+        var basket = await repository.GetBasket(query.UserName, cancellationToken);
+        return new GetBasketResult(basket);
     }
 }
